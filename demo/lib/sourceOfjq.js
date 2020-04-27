@@ -505,12 +505,6 @@
     if (isFunction(obj) || isWindow(obj)) {
       return false;
     }
-    // length属性为数字并且length>0并且length-1是obj的属性
-
-    // jQuery中定义的伪数组：
-    //  1. 数组
-    //  2. length属性为0的对象  // const arrayLike = { length: 0 }
-    //  3. length属性是数字并且>0，而且length-1是该元素的key的对象  // const arrayLike = { 0:'xxx',1:'xxx',length: 2 }
     return type === 'array' || length === 0 ||
       typeof length === 'number' && length > 0 && (length - 1) in obj;
   }

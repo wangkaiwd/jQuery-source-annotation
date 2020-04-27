@@ -135,6 +135,15 @@ jQuery.fn = jQuery.prototype = {
 	}
 };
 
+// 通过jQuery.extend为jQuery添加私有属性，可以通过jQuery.xxx直接调用
+// 通过jQuery.fn.extend为jQuery的原型添加属性，可以通过jQuery实例.xxx来直接调用
+// jQuery.extend
+// jQuery.fn.extend
+// 使用方式：一个函数支持多种调用方式，好处：方便调用；缺点：单个函数逻辑过于复杂(可以 extract method 来增加代码可读性)
+//  jQuery.extend(object)
+//  jQuery.fn.extend(object)
+//  jQuery.extend(target,object1,object2,...,objectN)
+//  jQuery.extend(true, target, object1, object2, ..., objectN)
 jQuery.extend = jQuery.fn.extend = function() {
 	var options, name, src, copy, copyIsArray, clone,
 		target = arguments[ 0 ] || {},
@@ -439,6 +448,12 @@ function( _i, name ) {
 	class2type[ "[object " + name + "]" ] = name.toLowerCase();
 } );
 
+// length属性为数字并且length>0并且length-1是obj的属性
+
+// jQuery中定义的伪数组：
+//  1. 数组
+//  2. length属性为0的对象  // const arrayLike = { length: 0 }
+//  3. length属性是数字并且>0，而且length-1是该元素的key的对象  // const arrayLike = { 0:'xxx',1:'xxx',length: 2 }
 function isArrayLike( obj ) {
 
 	var length = !!obj && obj.length,
@@ -447,6 +462,7 @@ function isArrayLike( obj ) {
 	if ( typeof obj === "function" || isWindow( obj ) ) {
 		return false;
 	}
+
   return type === "array" || length === 0 ||
     typeof length === "number" && length > 0 && ( length - 1 ) in obj;
 }
