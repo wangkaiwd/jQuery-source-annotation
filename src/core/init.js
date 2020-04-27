@@ -97,6 +97,8 @@ var rootjQuery,
 
 		// HANDLE: $(DOMElement)
 		} else if ( selector.nodeType ) {
+		  // selector.nodeType @see: https://developer.mozilla.org/zh-CN/docs/Web/API/Node/nodeType#%E8%8A%82%E7%82%B9%E7%B1%BB%E5%9E%8B%E5%B8%B8%E9%87%8F
+      // 如果selector不是DOM节点的话，selector.nodeType是undefined
 			this[ 0 ] = selector;
 			this.length = 1;
 			return this;
@@ -113,6 +115,11 @@ var rootjQuery,
 
 		return jQuery.makeArray( selector, this );
 	};
+
+// 这里init是一个构造函数，而它原型上的init方法又是自己，形成了环状结构
+// init: jQuery.fn.init
+// init.prototype: jQuery.fn
+// init.prototype.init = init
 
 // Give the init function the jQuery prototype for later instantiation
 init.prototype = jQuery.fn;

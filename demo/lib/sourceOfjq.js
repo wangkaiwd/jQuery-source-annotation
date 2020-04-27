@@ -494,7 +494,6 @@
     });
 
   function isArrayLike (obj) {
-
     // Support: real iOS 8.2 only (not reproducible in simulator)
     // `in` check used to prevent JIT error (gh-2145)
     // hasOwn isn't used here due to false negatives
@@ -502,10 +501,16 @@
     var length = !!obj && 'length' in obj && obj.length,
       type = toType(obj);
 
+    // window 或者 function不是伪数组
     if (isFunction(obj) || isWindow(obj)) {
       return false;
     }
+    // length属性为数字并且length>0并且length-1是obj的属性
 
+    // jQuery中定义的伪数组：
+    //  1. 数组
+    //  2. length属性为0的对象  // const arrayLike = { length: 0 }
+    //  3. length属性是数字并且>0，而且length-1是该元素的key的对象  // const arrayLike = { 0:'xxx',1:'xxx',length: 2 }
     return type === 'array' || length === 0 ||
       typeof length === 'number' && length > 0 && (length - 1) in obj;
   }
@@ -3114,6 +3119,15 @@
     rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/,
 
     init = jQuery.fn.init = function (selector, context, root) {
+      // new 的原理：
+      //    1. 创建一个空对象
+      //    2. 空对象的__proto__ = 当前函数的prototype
+      //    3. this = {}
+      //    4. 执行代码
+      //    5. 没有返回对象的时候，return this
+      // const temp = Object.create(jQuery.fn)
+      // this = temp
+      // 此时，this可以直接调用jQuery原型上的方法
       var match, elem;
 
       // HANDLE: $(""), $(null), $(undefined), $(false)
