@@ -14,6 +14,7 @@ var rootjQuery,
 	// Shortcut simple #id case for speed
 	rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/,
 
+  // 为jQuery.fn添加init属性
 	init = jQuery.fn.init = function( selector, context, root ) {
 		var match, elem;
 

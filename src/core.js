@@ -29,13 +29,24 @@ var version = "@VERSION",
     // 1. 确定this指向
     // 2. 初始化作用域链 scopeChain
     // 3. 初始化实参变量 arguments
-    // 4. 形参赋值
+    // 4. 创建形参变量并赋值
     // 5. 变量/函数声明提升
     // 6. 执行代码  -> 此时才会真正的执行代码
 		// The jQuery object is actually just the init constructor 'enhanced'
 		// Need init if jQuery is called (just allow error to be thrown if not included)
+    // 调用jQuery.fn.init方法即jQuery原型上的init方法，在jQuery/src/core/init.js中定义了jQuery.fn.init方法
+    // 由于jQuery.fn 和 jQuery.prototype指向了同一地址，所以当地址对象的堆内存中的键值对发生变化的时候，
+    // jQuery.fn和jQuery.prototype都会同时变化
 		return new jQuery.fn.init( selector, context );
 	};
+
+// jQuery是一个普通函数，每一个函数都会有一个特殊的属性叫做原型prototype
+// 在javascript中，函数可以有属性
+
+// 重新定义jQuery的原型，并且将jQuery的fn属性赋值为jQuery的原型
+// 在重新定义原型的时候，要记得手动添加constructor属性
+
+// 在没有使用new的情况下如何调用jQuery原型上的方法？
 
 jQuery.fn = jQuery.prototype = {
 
@@ -196,6 +207,14 @@ jQuery.extend = jQuery.fn.extend = function() {
 	return target;
 };
 
+// @see: https://api.jquery.com/jQuery.extend/#jQuery-extend-target-object1-objectN
+// If only one argument is supplied to $.extend(), this means the target argument was omitted. In this case, the jQuery object itself is assumed to be the target. By doing this, you can add new functions to the jQuery namespace. This can be useful for plugin authors wishing to add new methods to JQuery.
+
+// omit: 省略，忽略，遗漏
+// 如果只有一个参数被提供给$.extend(),这意味着target参数将会被忽略。在这种情况下，jQuery对象自己将会被假设为target参数。这样做，你可以为jQuery命名空间添加新的功能。
+// 对于插件作者想要为jQuery添加一个新的方法来说是非常有用的
+
+// 这里使用是为jQuery添加新方法
 jQuery.extend( {
 
 	// Unique for each copy of jQuery on the page

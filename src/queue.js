@@ -4,6 +4,7 @@ import dataPriv from "./data/var/dataPriv.js";
 import "./deferred.js";
 import "./callbacks.js";
 
+// 为jQuery对象添加属性和方法
 jQuery.extend( {
 	queue: function( elem, type, data ) {
 		var queue;
@@ -70,6 +71,7 @@ jQuery.extend( {
 	}
 } );
 
+// 为jQuery的原型添加属性和方法
 jQuery.fn.extend( {
 	queue: function( type, data ) {
 		var setter = 2;
