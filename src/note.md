@@ -32,5 +32,6 @@ init.prototype = jQuery.fn
 * 实例的私有属性通过`jQuery.fn.init`方法来设置
 * 实例的原型为`jQuery.prototype`
 
+`jQuery`如何解决变量冲突？
 
 

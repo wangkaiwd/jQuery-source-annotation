@@ -8,8 +8,8 @@ import "../deferred.js";
 var readyList = jQuery.Deferred();
 
 jQuery.fn.ready = function( fn ) {
-
-	readyList
+  console.log('readyList',readyList);
+  readyList
 		.then( fn )
 
 		// Wrap jQuery.readyException in a function so that the lookup
