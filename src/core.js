@@ -142,7 +142,9 @@ jQuery.fn = jQuery.prototype = {
 // 使用方式：一个函数支持多种调用方式，好处：方便调用；缺点：单个函数逻辑过于复杂(可以 extract method 来增加代码可读性)
 //  jQuery.extend(object)
 //  jQuery.fn.extend(object)
+// 将所有object中的属性浅合并到target上
 //  jQuery.extend(target,object1,object2,...,objectN)
+// 将所有object中的属性深合并到target上
 //  jQuery.extend(true, target, object1, object2, ..., objectN)
 jQuery.extend = jQuery.fn.extend = function() {
 	var options, name, src, copy, copyIsArray, clone,
@@ -274,17 +276,18 @@ jQuery.extend( {
 		DOMEval( code, { nonce: options && options.nonce }, doc );
 	},
 
+  // 遍历类数组(包括数组)和对象
 	each: function( obj, callback ) {
 		var length, i = 0;
-
-		if ( isArrayLike( obj ) ) {
+    // 类数组(包括数组)
+		if ( isArrayLike( obj ) ) { // 类数组会有length属性
 			length = obj.length;
 			for ( ; i < length; i++ ) {
 				if ( callback.call( obj[ i ], i, obj[ i ] ) === false ) {
 					break;
 				}
 			}
-		} else {
+		} else { // 对象
 			for ( i in obj ) {
 				if ( callback.call( obj[ i ], i, obj[ i ] ) === false ) {
 					break;
@@ -450,7 +453,7 @@ function( _i, name ) {
 
 // length属性为数字并且length>0并且length-1是obj的属性
 
-// jQuery中定义的伪数组：
+// jQuery中定义的伪数组：包括原生dom获取到的数组
 //  1. 数组
 //  2. length属性为0的对象  // const arrayLike = { length: 0 }
 //  3. length属性是数字并且>0，而且length-1是该元素的key的对象  // const arrayLike = { 0:'xxx',1:'xxx',length: 2 }

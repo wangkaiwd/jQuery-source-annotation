@@ -32,6 +32,19 @@ init.prototype = jQuery.fn
 * 实例的私有属性通过`jQuery.fn.init`方法来设置
 * 实例的原型为`jQuery.prototype`
 
-`jQuery`如何解决变量冲突？
+### `jQuery`如何解决变量冲突？
 
+### `jQuery`如何在`DOM`对象和`jQuery`对象之间相互转换
+`jQuery`对象转换为`DOM`对象：
+```text
+$('li').get(0)
+$('li').get(-1)
+$('li').get()
+$('li')[0]
+```
+
+`get`方法的源码如下：
+```javascript
+
+```
 
