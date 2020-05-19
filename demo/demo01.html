@@ -8,9 +8,15 @@
   <title>Document</title>
 </head>
 <body>
-<div class="test"></div>
+<div class="test">
+  I am test word
+</div>
 <script src="./lib/sourceOfjq.js"></script>
 <script>
+  // on方法事件绑定使用方法
+  $('.test').on('click mouseenter', 'a-data', (e) => {
+    console.log('test&mouseenter', e);
+  });
 </script>
 </body>
 </html>
